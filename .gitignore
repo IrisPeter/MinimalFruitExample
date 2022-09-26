@@ -1,6 +1,17 @@
 # Prerequisites
 *.d
 
+# Visual Studio Cache files
+.vs/
+
+# Release Folders
+x64/
+x86/
+Win32/
+
+# Backup files
+*.bak
+
 # Compiled Object files
 *.slo
 *.lo
