@@ -17,9 +17,15 @@ public:
 	{
 		return false;
 	}
+
+	// Inherited via IAssetGroup
+	int GetGroupId() const override
+	{
+		return m_group;
+	}
 };
 
-fruit::Component<std::function<std::unique_ptr<IAssetGroup>(int)>> getAssetGroupComponent()
+fruit::Component<AssetGroupFactory> getAssetGroupComponent()
 {
 	return fruit::createComponent()
 		.bind<IAssetGroup, AssetGroupImpl>();

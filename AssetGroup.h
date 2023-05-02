@@ -10,6 +10,9 @@ class IAssetGroup
 public:
     virtual ~IAssetGroup() = default;
     virtual bool IsMotorGroup() const = 0;
+    virtual int GetGroupId() const = 0;
 };
 
-fruit::Component<std::function<std::unique_ptr<IAssetGroup>(int)>> getAssetGroupComponent();
+using AssetGroupFactory = std::function<std::unique_ptr<IAssetGroup>(int)>;
+
+fruit::Component<AssetGroupFactory> getAssetGroupComponent();

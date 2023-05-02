@@ -21,9 +21,15 @@
     <ClCompile Include="MinimalFruitExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NeedsAssetGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NeedsAssetGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
