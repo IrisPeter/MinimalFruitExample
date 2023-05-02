@@ -27,6 +27,9 @@
     <ClCompile Include="multiplier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="scaler_all_attempts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="scaler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -16,24 +16,42 @@
 
 #include "scaler.h"
 #include "multiplier.h"
+#include <fruit/macro.h>
 
 using fruit::Component;
 using fruit::Injector;
 using fruit::createComponent;
 
-class ScalerImpl : public Scaler {
+class ScalerImpl : public Scaler
+{
 private:
-  Multiplier* multiplier;
-  double factor;
+    Multiplier* multiplier;
+    double factor;
 
 public:
-  INJECT(ScalerImpl(ASSISTED(double) factor, Multiplier* multiplier)) : multiplier(multiplier), factor(factor) {}
+    ScalerImpl(ASSISTED(double) factor, Multiplier* multiplier) : multiplier(multiplier), factor(factor) {}
+    //ScalerImpl(ASSISTED(int) factor, Multiplier* multiplier) : multiplier(multiplier), factor(factor) {}
 
-  double scale(double x) override {
-    return multiplier->multiply(x, factor);
-  }
+    double scale(double x) override
+    {
+        return multiplier->multiply(x, factor);
+    }
 };
 
-Component<ScalerFactory> getScalerComponent() {
-  return createComponent().bind<Scaler, ScalerImpl>().install(getMultiplierComponent);
+
+Component<ScalerFactory> getScalerComponent()
+{
+    return createComponent()
+
+        .registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<double>, Multiplier*)>(
+            [ ](double n, Multiplier* Multiplier) {
+                return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
+            })
+        /*.registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<int>, Multiplier*)>(
+            [ ](int n, Multiplier* Multiplier) {
+                return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
+            })*/
+
+                .bind<Scaler, ScalerImpl>()
+                .install(getMultiplierComponent);
 }
