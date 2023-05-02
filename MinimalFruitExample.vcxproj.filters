@@ -24,12 +24,21 @@
     <ClCompile Include="NeedsAssetGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="multiplier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scaler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NeedsAssetGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scaler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

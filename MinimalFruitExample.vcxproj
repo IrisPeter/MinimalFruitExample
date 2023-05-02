@@ -80,11 +80,14 @@
   <ItemGroup>
     <ClCompile Include="AssetGroup.cpp" />
     <ClCompile Include="MinimalFruitExample.cpp" />
+    <ClCompile Include="multiplier.cpp" />
     <ClCompile Include="NeedsAssetGroup.cpp" />
+    <ClCompile Include="scaler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetGroup.h" />
     <ClInclude Include="NeedsAssetGroup.h" />
+    <ClInclude Include="scaler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

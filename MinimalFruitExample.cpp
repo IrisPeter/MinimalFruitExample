@@ -4,42 +4,22 @@
 
 #include "NeedsAssetGroup.h"
 #include "AssetGroup.h"
+#include "scaler.h"
+#include <memory>
+#include <iostream>
+
+using fruit::Injector;
 
 int main(int argc, char* argv[], char* other_parameters[])
 {
     int ret = 0;
 
-    // Create Group using integer
+    Injector<ScalerFactory> injector(getScalerComponent);
+    ScalerFactory scalerFactory(injector);
 
-    // Non DI Code:
-    // auto someGroup = CAssetGroup::Create(12);
+    std::unique_ptr<Scaler> scaler = scalerFactory(12.1);
+    std::cout << scaler->scale(3) << std::endl;
 
-
-    /*
-
-    fruit::Injector<Iris::BusinessRules::Taxation::ILicenceInformation> injector(getLicenceComponent);
-
-	Iris::BusinessRules::Taxation::ILicenceInformation::Ptr licensePtr(injector);
-
-	WPARAM one = 1;
-	LPARAM two = 2;
-
-	auto wideParam = one;
-	auto longParam = two;
-
-	bool SUT = licensePtr->GetIsLicensedForAutoMail() ;
-    */
-    fruit::Injector<INeedsAssetGroup> injector(getNeedsAssetGroupComponent);
-
-
-    INeedsAssetGroup* needsAssetGroupPtr(injector);
-
-    auto res = needsAssetGroupPtr->GetCurrentAssetGroup();
-
-   /* fruit::Injector<AssetGroupFactory> injector(getAssetGroupComponent);
-    AssetGroupFactory groupFactory(injector);
-
-    std::unique_ptr<IAssetGroup> group = groupFactory(512);*/
 
     return ret;
 }
