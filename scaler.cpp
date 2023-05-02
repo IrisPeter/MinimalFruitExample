@@ -18,6 +18,8 @@
 #include "multiplier.h"
 #include <fruit/macro.h>
 
+#include <iostream>
+
 using fruit::Component;
 using fruit::Injector;
 using fruit::createComponent;
@@ -29,8 +31,13 @@ private:
     double factor;
 
 public:
-    ScalerImpl(ASSISTED(double) factor, Multiplier* multiplier) : multiplier(multiplier), factor(factor) {}
-    //ScalerImpl(ASSISTED(int) factor, Multiplier* multiplier) : multiplier(multiplier), factor(factor) {}
+    explicit ScalerImpl(double dFac, Multiplier* multiplier) : multiplier(multiplier), factor(dFac)
+    {
+    }
+
+    explicit ScalerImpl(int iFac, Multiplier* multiplier) : multiplier(multiplier), factor(iFac)
+    {
+    }
 
     double scale(double x) override
     {
@@ -38,20 +45,20 @@ public:
     }
 };
 
-
-Component<ScalerFactory> getScalerComponent()
+Component<ScalerFactory, ScalerFactory2> getScalerComponent()
 {
-    return createComponent()
-
-        .registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<double>, Multiplier*)>(
-            [ ](double n, Multiplier* Multiplier) {
-                return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
-            })
-        /*.registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<int>, Multiplier*)>(
-            [ ](int n, Multiplier* Multiplier) {
-                return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
-            })*/
-
-                .bind<Scaler, ScalerImpl>()
-                .install(getMultiplierComponent);
+    return createComponent()    .registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<double>, Multiplier*)>(
+                                        [ ](double n, Multiplier* Multiplier)
+                                        {
+                                            std::cerr << "Inside factory for doubles\n";
+                                            return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
+                                        })
+                                .registerFactory< std::unique_ptr<ScalerImpl>(fruit::Assisted<int>, Multiplier*)>(
+                                        [ ](int n, Multiplier* Multiplier)
+                                        {
+                                            std::cerr << "Inside factory for ints\n";
+                                            return std::unique_ptr<ScalerImpl>(new ScalerImpl(n, Multiplier));
+                                        })
+                                .bind<Scaler, ScalerImpl>()
+                                .install(getMultiplierComponent);
 }
